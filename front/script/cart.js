@@ -8,16 +8,13 @@ function main(){
     calculatePrice();
     checkFormAndPostRequest();
 }
-/*=================================================================================================================*/
-/*=================================================================================================================*/
 
 // SUPPRIMER L INTERIEUR D ARTICLE
 var section = document.querySelector('#cart__items')
 while(section.firstChild)
     section.removeChild(section.firstChild)
 
-/*=================================================================================================================*/
-/*=================================================================================================================*/
+//Calcul dynamique des quantités d'articles dans le panier
 function calculateQuantity ()  {
     // RECUPERER LES PRODUIT AJOUTER
     const LS = JSON.parse(localStorage.getItem("products"));
@@ -37,6 +34,7 @@ function calculateQuantity ()  {
     totalQuantity.innerHTML = totalQte;
 };
 
+//Calcul dynamique du prix des articles dans le panier
 function calculatePrice () {
     let prixTotal = 0;
     let totalPrice = document.querySelector('#totalPrice');
@@ -57,6 +55,7 @@ function calculatePrice () {
     }
 };
 
+//Insertion des données dans la page cart.html
 function getData () {
     // CREATION DU PANIER
     for(let produitIndex in LS) {
@@ -133,9 +132,6 @@ function getData () {
             input.min = '1'
             input.max = '100'
 
-            /*=================================================================================================================*/
-            /*=================================================================================================================*/
-
             // CHANGEMENT DE LA VALEUR LORS DU CLICK
             input.addEventListener('change', (e) => {
                 LS.find((item) => {
@@ -148,9 +144,6 @@ function getData () {
                 calculatePrice();
             });
 
-
-            /*=================================================================================================================*/
-            /*=================================================================================================================*/
 
             var quantityValue = LS[produitIndex].quantity;
             input.setAttribute('value', quantityValue)
@@ -184,9 +177,7 @@ function getData () {
 
 }
 
-
-/*=================================================================================================================*/
-/*=================================================================================================================*/
+//Vérification du prénom du formulaire
 function nameValid () {
     let inputName = document.querySelector("#firstName");
     let errorName = document.querySelector("#firstNameErrorMsg");
@@ -198,6 +189,7 @@ function nameValid () {
     }
 }
 
+//Vérification du nom du formulaire
 function lastNameValid () {
     let inputLastName = document.querySelector("#lastName");
     let errorLastName = document.querySelector("#lastNameErrorMsg");
@@ -209,6 +201,7 @@ function lastNameValid () {
     }
 }
 
+//Vérification de l'adresse du formulaire
 function adressValid () {
     let inputAdress = document.querySelector("#address");
     let errorAdress = document.querySelector("#addressErrorMsg");
@@ -220,6 +213,7 @@ function adressValid () {
     }
 }
 
+//Vérification de la ville du formulaire
 function cityValid () {
     let inputCity = document.querySelector("#city");
     let errorCity = document.querySelector("#cityErrorMsg");
@@ -231,6 +225,7 @@ function cityValid () {
     }
 }
 
+//Vérification de l'email du formulaire
 function emailValid () {
     let inputMail = document.querySelector("#email");
     let errorMail = document.querySelector("#emailErrorMsg");
@@ -286,13 +281,12 @@ function checkFormAndPostRequest(){
                 products: productsBought,
             };
 
-            /*=================================================================================================================*/
-            /*=================================================================================================================*/
             sendCart(order);
         }
     });
 }
 
+//Envoie du formulaire
 function sendCart (order) {
     // -------  Envoi de la requête POST au back-end --------
     // Création de l'entête de la requête

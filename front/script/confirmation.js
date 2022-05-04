@@ -6,6 +6,7 @@ function main() {
     displayOrderId(id);
 }
 
+//Insertion des données dans la page confirmation.html
 function displayOrderId(id) {
     const orderId = document.querySelector("#orderId");
     orderId.innerHTML = id;
