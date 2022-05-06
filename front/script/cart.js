@@ -35,25 +35,21 @@ function calculateQuantity ()  {
 };
 
 //Calcul dynamique du prix des articles dans le panier
+//Calcul dynamique du prix des articles dans le panier
 function calculatePrice () {
     let prixTotal = 0;
-    let totalPrice = document.querySelector('#totalPrice');
-    // RECUPERER LES PRODUIT AJOUTER
-    const LS = JSON.parse(localStorage.getItem("products"));
-
+    let asyncIndex = 0;
     for (let i = 0; i < LS.length; i++) {
-        const dataApi = fetch(`http://localhost:3000/api/products/${LS[i]._id}`)
-        dataApi.then(async (resData) => {
-            const monCanap = await resData.json();
-            prixTotal += Number(monCanap.price * LS[i].quantity);
-
-            if( i === LS.length-1) {
-                // ON L INSERE DANS LA PAGE
-                totalPrice.innerHTML = prixTotal;
-            }
-        });
+        fetch(`http://localhost:3000/api/products/${LS[i]._id}`)
+            .then(resData => resData.json())
+            .then((monCanap) => {
+                prixTotal += Number(monCanap.price * LS[i].quantity);
+                asyncIndex++;
+                if (asyncIndex == LS.length) document.querySelector('#totalPrice').innerHTML = prixTotal;
+            });
     }
 };
+
 
 //Insertion des données dans la page cart.html
 function getData () {
